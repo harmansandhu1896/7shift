@@ -31,9 +31,10 @@ public class Solution {
                 }
                 if (numbers.charAt(0) == '/' && numbers.charAt(1) == '/') {
                     //handle the input with format //@\n1@2@3
-                    String mychar = Character.toString(numbers.charAt(2));
 
-                    String[] after_Split = numbers.split("\n");
+                    String mychar = Character.toString(numbers.charAt(2));//extracting the delimiter
+
+                    String[] after_Split = numbers.split("\n");//splitting the string from \n
                     String spl = after_Split[1];
 
                     sum = process(spl, mychar);
