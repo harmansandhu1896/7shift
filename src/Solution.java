@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -9,9 +10,10 @@ public class Solution {
         int total = 0;
 
         String arr = null;
-        arr = "10,5,6,7,9,0";
-        arr = "10\n,5,6,7,9,0";
+        //arr = "10,5,6,7,9,0";
+        // arr = "10\n,5,6,7,9,0";
         arr = "//,\n10,5,6,7,9,0";
+
         Solution s = new Solution();
 
         total = add(arr);
@@ -50,9 +52,32 @@ public class Solution {
 
     public static int process(String string_input, String delimiter_char) {
         int sum = 0;
-        List<Integer> list = null;
-        list = Stream.of(string_input.split(delimiter_char)).map(Integer::parseInt).collect(Collectors.toList());// putting every character from string into list after spliting using the delimiter
-        sum = list.stream().mapToInt(i -> i).sum();//getting the sum of the list
+        try {
+            List<Integer> list = null;
+            List<Integer> positive = new ArrayList<>();
+            List<Integer> negative = new ArrayList<>();
+
+            list = Stream.of(string_input.split(delimiter_char)).map(Integer::parseInt).collect(Collectors.toList());// putting every character from string into list after spliting using the delimiter
+
+            if (!list.isEmpty()) {
+
+                list.stream().forEach(i -> (i < 0 ? negative : positive).add(i));
+
+                if (!negative.isEmpty()) {
+                    throw new Exception();
+                } else {
+                    sum = positive.stream().mapToInt(i -> i).sum();// sum of list of numbers in positive list
+
+                }
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            System.out.println("negatives not allowed");
+            return 0;
+        }
         return sum;
+
     }
+
 }
