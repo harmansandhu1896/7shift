@@ -10,7 +10,8 @@ public class Solution {
 
         String arr = null;
         arr = "10,5,6,7,9,0";
-
+        arr = "10\n,5,6,7,9,0";
+        arr = "//,\n10,5,6,7,9,0";
         Solution s = new Solution();
 
         total = add(arr);
@@ -24,8 +25,18 @@ public class Solution {
             if (!numbers.isEmpty()) {
 
                 if (isDigit(numbers.charAt(0))) {
-
+                    //handles the normal input like 1,2,3,4 or 1\n,2,3,4
                     sum = process(numbers, "\\W+");
+
+                }
+                if (numbers.charAt(0) == '/' && numbers.charAt(1) == '/') {
+                    //handle the input with format //@\n1@2@3
+                    String mychar = Character.toString(numbers.charAt(2));
+
+                    String[] after_Split = numbers.split("\n");
+                    String spl = after_Split[1];
+
+                    sum = process(spl, mychar);
 
                 }
 
@@ -39,8 +50,8 @@ public class Solution {
     public static int process(String string_input, String delimiter_char) {
         int sum = 0;
         List<Integer> list = null;
-        list = Stream.of(string_input.split(delimiter_char)).map(Integer::parseInt).collect(Collectors.toList());
-        sum = list.stream().mapToInt(i -> i).sum();
+        list = Stream.of(string_input.split(delimiter_char)).map(Integer::parseInt).collect(Collectors.toList());// putting every character from string into list after spliting using the delimiter
+        sum = list.stream().mapToInt(i -> i).sum();//getting the sum of the list
         return sum;
     }
 }
