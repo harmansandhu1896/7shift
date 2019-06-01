@@ -12,7 +12,8 @@ public class Solution {
         String arr = null;
         //arr = "10,5,6,7,9,0";
         // arr = "10\n,5,6,7,9,0";
-        arr = "//,\n10,5,6,7,9,0";
+        //arr = "//,\n10,5,6,7,9,0";
+        arr = "//,\n1001,5,6,7,9,0";
 
         Solution s = new Solution();
 
@@ -57,7 +58,7 @@ public class Solution {
             List<Integer> positive = new ArrayList<>();
             List<Integer> negative = new ArrayList<>();
 
-            list = Stream.of(string_input.split(delimiter_char)).map(Integer::parseInt).collect(Collectors.toList());// putting every character from string into list after spliting using the delimiter
+            list = Stream.of(string_input.split(delimiter_char)).map(Integer::parseInt).filter(i -> i < 1000).collect(Collectors.toList());// putting every character from string into list after spliting using the delimiter
 
             if (!list.isEmpty()) {
 
